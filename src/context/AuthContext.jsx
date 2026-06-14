@@ -1,5 +1,5 @@
 import React, { createContext, useState, useEffect, useContext } from "react";
-import { signInWithPopup, signOut, onAuthStateChanged } from "firebase/auth";
+import { signInWithPopup, signOut } from "firebase/auth";
 import { auth, googleProvider } from "../firebase/firebase";
 import { saveSession, getSession, clearSession } from "../utils/session";
 import toast from "react-hot-toast";
@@ -10,7 +10,7 @@ export const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
   const [loginTime, setLoginTime] = useState(null);
   const [expiryTime, setExpiryTime] = useState(null);
-  const [loading, setLoading] = useState(true);
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
     const session = getSession();
@@ -19,7 +19,7 @@ export const AuthProvider = ({ children }) => {
       setLoginTime(session.loginTime);
       setExpiryTime(session.expiryTime);
     }
-    setLoading(false);
+    setIsLoading(false);
   }, []);
 
   const loginWithGoogle = async () => {
@@ -61,7 +61,7 @@ export const AuthProvider = ({ children }) => {
   };
 
   return (
-    <AuthContext.Provider value={{ user, loginTime, expiryTime, loading, loginWithGoogle, logout }}>
+    <AuthContext.Provider value={{ user, loginTime, expiryTime, isLoading, loginWithGoogle, logout }}>
       {children}
     </AuthContext.Provider>
   );

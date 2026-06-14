@@ -1,5 +1,5 @@
 const SESSION_KEY = "auth_session";
-const EXPIRY_DURATION = 24 * 60 * 60 * 1000; // 24 hours in milliseconds
+const EXPIRY_DURATION = 24 * 60 * 60 * 1000;
 
 export const saveSession = (user) => {
   const loginTime = Date.now();
